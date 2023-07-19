@@ -1,0 +1,6 @@
+Django==4.1
+psycopg2-binary==2.9.3
+gunicorn==20.1
+tzdata
+matplotlib
+pytz
