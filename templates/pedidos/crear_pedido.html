@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Pedido</title>
+    <!-- Agrega aquí tus etiquetas <meta>, <link>, etc. si es necesario -->
+    <!-- Agrega el enlace a la hoja de estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Crear Pedido</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ cabecera_form.as_p }}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Stock Operacional</th>
+                        <th>Sugerido</th>
+                        <th>Vencido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                    <tr>
+                        <td>{{ producto.nombre }}</td>
+                        <td>${{ producto.precio }}</td>
+                        <td><input type="number" name="stock_operacional_{{ producto.id }}" value="0" min="0" class="form-control"></td>
+                        <td><input type="number" name="sugerido_{{ producto.id }}" value="0" min="0" class="form-control sugerido-input" onchange="calcularCostoTotal()"></td>
+                        <td><input type="number" name="vencido_{{ producto.id }}" value="0" min="0" class="form-control"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div>
+                <label>Total Costo: Gs</label>
+                <input type="number" id="total_costo" value="0" readonly class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Pedido</button>
+        </form>
+    </div>
+
+    <script>
+        function calcularCostoTotal() {
+            let totalCosto = 0;
+            const sugeridoInputs = document.getElementsByClassName('sugerido-input');
+            const precios = document.querySelectorAll('td:nth-child(2)'); // Seleccionar la columna de precios
+            for (let i = 0; i < sugeridoInputs.length; i++) {
+                const precio = parseFloat(precios[i].textContent.slice(1)); // Obtener el precio del producto
+                const cantidad = parseFloat(sugeridoInputs[i].value);
+                totalCosto += precio * cantidad;
+            }
+            document.getElementById('total_costo').value = totalCosto.toFixed(2);
+        }
+    </script>
+</body>
+</html>
