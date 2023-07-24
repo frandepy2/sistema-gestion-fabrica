@@ -16,6 +16,7 @@
                     <th>ID</th>
                     <th>Fecha</th>
                     <th>Estado</th>
+                    <th>Acciones</th>
                     <!-- Agrega aquí más columnas si tienes más atributos en el modelo Pedido -->
                 </tr>
             </thead>
@@ -23,8 +24,9 @@
                 {% for pedido in pedidos %}
                 <tr>
                     <td>{{ pedido.id }}</td>
-                    <td>{{ pedido.fecha }}</td>
+                    <td>{{ pedido.fecha_pedido }}</td>
                     <td>{{ pedido.estado }}</td>
+                    <td><a href="" class="btn btn-info">Detalles</a></td>
                     <!-- Agrega aquí más columnas si tienes más atributos en el modelo Pedido -->
                 </tr>
                 {% endfor %}

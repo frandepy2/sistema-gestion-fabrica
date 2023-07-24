@@ -12,17 +12,40 @@ def listar_pedidos(request):
 def crear_pedido(request):
     productos = Producto.objects.all()
     usuario_actual = request.user
-    print(usuario_actual)
 
     if request.method == 'POST':
+        costo = 0
         cabecera_pedido = CabeceraPedido.objects.create(
-            fecha_pedido= datetime.date.today(),
+            fecha_pedido=datetime.date.today(),
             cliente=usuario_actual
         )
-        
-        print("##DEBUG##")
-        print(cabecera_pedido.cliente)
-        print(cabecera_pedido.fecha_pedido)
+
+        for key, value in request.POST.items():
+            if key.startswith('sugerido_'):
+                producto_id = key.replace('sugerido_', '')
+                producto = Producto.objects.get(pk=producto_id)
+                sugerido = int(value)
+                # Supongamos que los otros campos, como stock_operacional y vencido, también se reciben y se procesan aquí
+                stock_operacional = int(request.POST.get(f'stock_operacional_{producto_id}', 0))
+                vencido = int(request.POST.get(f'vencido_{producto_id}', 0))
+
+                # Verificar si los tres campos son iguales a 0
+                if sugerido == 0 and stock_operacional == 0 and vencido == 0:
+                    continue  # No crear el detalle si todos los campos son 0
+
+                costo += producto.precio * sugerido
+
+                # Crear el detalle del pedido asociado a la cabecera
+                DetallePedido.objects.create(
+                    cabecera_pedido=cabecera_pedido,
+                    producto=producto,
+                    sugerido=sugerido,
+                    stock_operacional=stock_operacional,
+                    vencido=vencido
+                )
+
+        cabecera_pedido.costo_total = costo
+        cabecera_pedido.save()
 
         return redirect('/pedidos')  # Redirigir a la vista después de guardar el pedido
 
