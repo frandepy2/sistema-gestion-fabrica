@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Editar Producto</title>
-    <!-- Agrega aquí tus etiquetas <meta>, <link>, etc. si es necesario -->
-    <!-- Agrega el enlace a la hoja de estilos de Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+{% extends "../base.html" %}
+{% block content %}
     <div class="container">
         <h1>Editar Producto</h1>
         <form method="post">
@@ -15,5 +8,4 @@
             <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}

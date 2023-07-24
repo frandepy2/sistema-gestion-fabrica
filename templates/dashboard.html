@@ -6,20 +6,93 @@
             <div class="col-md-6">
                 <h1>{{ title }}</h1>
                 <p>{{ subtitle }}</p>
+
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="card col-md-3 mx-1 my-1">
+                            <div class="card-body">
+                                <h5 class="card-title">adasd</h5>
+                            </div>
+                        </div>
+                        <div class="card col-md-3 mx-1 my-1">
+                            <div class="card-body">
+                                <h5 class="card-title">adsad</h5>
+                            </div>
+                        </div>
+                        <div class="card col-md-3 mx-1 my-1">
+                            <div class="card-body">
+                                <h5 class="card-title">hola</h5>
+                            </div>
+                        </div>
+                        <div class="card col-md-3 mx-1 my-1">
+                            <div class="card-body">
+                                <h5 class="card-title">hola</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="col-md-6">
-                <div class="card">
+                {% if pedidos %}
+                <div class="card my-1">
                     <div class="card-body">
-                        <h5 class="card-title">Data 1</h5>
-                        <p class="card-text">{{ data1 }}</p>
+                        <h5 class="card-title">Mis pedidos Pendientes</h5>
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                    <!-- Agrega aquí más columnas si tienes más atributos en el modelo Pedido -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pedido in pedidos %}
+                                <tr>
+                                    <td>{{ pedido.id }}</td>
+                                    <td>{{ pedido.fecha_pedido|date:"Y-m-d" }}</td>
+                                    <td>{{ pedido.estado }}</td>
+                                    <td><a href="{% url 'detalle_pedido' pedido.id %}" class="btn btn-info">Detalles</a></td>
+                                    <!-- Agrega aquí más columnas si tienes más atributos en el modelo Pedido -->
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="card mt-3">
+                {% endif %}
+                {% if completados %}
+                <div class="card my-1">
                     <div class="card-body">
-                        <h5 class="card-title">Data 2</h5>
-                        <p class="card-text">{{ data2 }}</p>
+                        <h5 class="card-title">Mis pedidos completados esta semana</h5>
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                    <!-- Agrega aquí más columnas si tienes más atributos en el modelo Pedido -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pedido in completados %}
+                                <tr>
+                                    <td>{{ pedido.id }}</td>
+                                    <td>{{ pedido.fecha_pedido|date:"Y-m-d" }}</td>
+                                    <td>{{ pedido.estado }}</td>
+                                    <td><a href="{% url 'detalle_pedido' pedido.id %}" class="btn btn-info">Detalles</a></td>
+                                    <!-- Agrega aquí más columnas si tienes más atributos en el modelo Pedido -->
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+                {% endif %}
+                <br>
             </div>
         </div>
     </div>
