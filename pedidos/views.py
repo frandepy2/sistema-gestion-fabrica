@@ -3,12 +3,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import CabeceraPedido, DetallePedido
 from .forms import CabeceraPedidoForm, DetallePedidoForm
 from productos.models import Producto
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
+@login_required
 def listar_pedidos(request):
     pedidos = CabeceraPedido.objects.filter(cliente=request.user)
     return render(request, 'pedidos/listar_pedidos.html', {'pedidos': pedidos})
 
+@login_required
 def crear_pedido(request):
     productos = Producto.objects.all()
     usuario_actual = request.user
@@ -54,6 +58,7 @@ def crear_pedido(request):
 
     return render(request, 'pedidos/crear_pedido.html', {'productos': productos, 'detalle_form': detalle_form})
 
+@login_required
 def detalle_pedido(request, pedido_id):
     pedido = get_object_or_404(CabeceraPedido, pk=pedido_id)
     detalles =  DetallePedido.objects.filter(cabecera_pedido=pedido)

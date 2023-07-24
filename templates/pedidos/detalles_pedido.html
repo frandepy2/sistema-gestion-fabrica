@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Detalle de Pedido</title>
-    <!-- Agrega aquí tus etiquetas <meta>, <link>, etc. si es necesario -->
-    <!-- Agrega el enlace a la hoja de estilos de Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
     <div class="container">
         <h1>Detalle del Pedido #{{ cabecera.id }}</h1>
         <p>Fecha: {{cabecera.fecha_pedido}}</p>
@@ -35,5 +29,4 @@
         </table>
         <p>Total del Pedido: Gs{{ cabecera.costo_total }}</p>
     </div>
-</body>
-</html>
+{% endblock %}

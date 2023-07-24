@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Listar Productos</title>
-    <!-- Agrega aquí tus etiquetas <meta>, <link>, etc. si es necesario -->
-
-    <!-- Agrega el enlace a la hoja de estilos de Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+{% extends "../base.html" %}
+{% block content %}
     <div class="container">
         <h1>Listado de Productos</h1>
         <a href="{% url 'crear_producto' %}" class="btn btn-primary">Nuevo Producto</a>
+        <br>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -38,5 +31,4 @@
             </tbody>
         </table>
     </div>
-</body>
-</html>
+{% endblock %}

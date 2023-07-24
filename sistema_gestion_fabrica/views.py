@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, redirect
 
+from pedidos.models import CabeceraPedido, EstadoPedido
+
 def is_cliente(user):
     return user.groups.filter(name='CLIENTE').exists()
 
@@ -43,11 +45,12 @@ def dashboard(request):
 
 @user_passes_test(is_cliente, login_url='/login/')
 def dashboard_cliente(request):
-    # Tu lógica para obtener los datos específicos para el grupo "CLIENTE"
+    pedidos = CabeceraPedido.objects.filter(cliente=request.user, estado = EstadoPedido.EN_PROCESO.name)
+    completados = CabeceraPedido.objects.filter(cliente=request.user, estado = EstadoPedido.COMPLETADO.name)
     data = {
         'title': 'Dashboard Cliente',
         'subtitle': 'Bienvenido al dashboard para clientes',
-        'data1': 200,
-        'data2': 250,
+        'pedidos': pedidos,
+        'completados': completados,
     }
     return render(request, 'dashboard_cliente.html', data)

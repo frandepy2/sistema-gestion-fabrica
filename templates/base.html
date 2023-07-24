@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}La carta Gourmet{% endblock %}</title>
+    <!-- Enlace al CDN de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px; height: 100vh;">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                    <span class="fs-4">La carta Gourmet</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                  <li>
+                    <a href="{% url 'dashboard' %}" class="nav-link text-white">
+                      <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                      Inicio
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url 'listar_productos' %}" class="nav-link text-white">
+                      <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                      Productos
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url 'listar_pedidos' %}" class="nav-link text-white">
+                      <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                      Pedidos
+                    </a>
+                  </li>
+                </ul>
+                <hr>
+                <div class="dropdown">
+                  <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <strong>{{request.user}}</strong>
+                  </a>
+                </div>
+              </div>
+
+            <!-- Contenido principal -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                {% block content %}
+                {% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Obtiene la URL actual
+            var currentUrl = window.location.href;
+
+            // Recorre cada elemento de la lista del menú
+            $(".nav-link").each(function() {
+                // Obtiene la URL del elemento de la lista
+                var linkUrl = $(this).attr("href");
+
+                // Compara la URL actual con la URL del elemento de la lista
+                if (currentUrl.includes(linkUrl)) {
+                    // Agrega la clase "active" al elemento de la lista si coincide con la URL actual
+                    $(this).addClass("active");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
