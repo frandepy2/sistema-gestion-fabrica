@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle de Pedido</title>
+    <!-- Agrega aquí tus etiquetas <meta>, <link>, etc. si es necesario -->
+    <!-- Agrega el enlace a la hoja de estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalle del Pedido #{{ cabecera.id }}</h1>
+        <p>Fecha: {{cabecera.fecha_pedido}}</p>
+        <p>Estado: {{cabecera.estado}}</p>
+        <p>Costo: {{cabecera.costo_total}}</p>
+        <!-- Muestra los detalles del pedido -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Stock Operacional</th>
+                    <th>Sugerido</th>
+                    <th>Vencido</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detalle in detalles %}
+                <tr>
+                    <td>{{ detalle.producto }}</td>
+                    <td>{{ detalle.stock_operacional }}</td>
+                    <td>{{ detalle.sugerido }}</td>
+                    <td>{{ detalle.vencido }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>Total del Pedido: Gs{{ cabecera.costo_total }}</p>
+    </div>
+</body>
+</html>

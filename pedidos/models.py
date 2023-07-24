@@ -18,16 +18,16 @@ class CabeceraPedido(models.Model):
     costo_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     ESTADO_CHOICES = [
-        ('EN_PROCESO', EstadoPedido.EN_PROCESO),
-        ('ENVIADO', EstadoPedido.ENVIADO),
-        ('CONFIRMADO', EstadoPedido.CONFIRMADO),
-        ('COMPLETADO', EstadoPedido.COMPLETADO),
+        ('EN_PROCESO', EstadoPedido.EN_PROCESO.name),
+        ('ENVIADO', EstadoPedido.ENVIADO.name),
+        ('CONFIRMADO', EstadoPedido.CONFIRMADO.name),
+        ('COMPLETADO', EstadoPedido.COMPLETADO.name),
     ]
 
     estado = models.CharField(
         max_length=100,
         choices=ESTADO_CHOICES,
-        default=EstadoPedido.EN_PROCESO,
+        default= EstadoPedido.EN_PROCESO.name,
     )
 
     def __str__(self):

@@ -53,3 +53,9 @@ def crear_pedido(request):
         detalle_form = DetallePedidoForm()
 
     return render(request, 'pedidos/crear_pedido.html', {'productos': productos, 'detalle_form': detalle_form})
+
+def detalle_pedido(request, pedido_id):
+    pedido = get_object_or_404(CabeceraPedido, pk=pedido_id)
+    detalles =  DetallePedido.objects.filter(cabecera_pedido=pedido)
+    productos = Producto.objects.all()
+    return render(request, 'pedidos/detalles_pedido.html', {'detalles': detalles , 'cabecera' :pedido, 'productos':productos })
